@@ -1,3 +1,4 @@
+from __future__ import annotations
 from exceptions import WrongChoiceInMenu
 
 
@@ -8,15 +9,19 @@ class Executor:
     def twotwo(self):
         pass
 
+    @staticmethod
+    def exit_menu():
+        Menu.working = False
+
 
 class Menu:
     def __init__(self):
         self.executor = Executor()
-        self.options = {1: self.executor.oneone, 2: self.executor.twotwo}
+        self.options = {1: self.executor.oneone, 2: self.executor.twotwo, 9: self.executor.exit_menu}
         self.working = True
 
     def show_menu(self):
-        choice = int(input("Choose any option:\n1. Oneone \n2. Twotwo"))
+        choice = int(input("Choose any option:\n1. Oneone \n2. Twotwo \n9. Exit \n"))
         self.execute(choice)
 
     @staticmethod
@@ -25,6 +30,3 @@ class Menu:
 
     def execute(self, choice: int):
         self.options.get(choice, self.show_error())
-
-    def exit(self):
-        self.working = False
