@@ -1,5 +1,5 @@
 from __future__ import annotations
-from exceptions import WrongChoiceInMenu
+from exceptions import WrongChoiceInMenu, WrongTypeOfInput
 
 
 class Executor:
@@ -21,12 +21,16 @@ class Menu:
         self.working = True
 
     def show_menu(self):
-        choice = int(input("Choose any option:\n1. Oneone \n2. Twotwo \n9. Exit \n"))
-        self.execute(choice)
+        try:
+            choice = int(input("Choose any option:\n1. Oneone \n2. Twotwo \n9. Exit \n"))
+        except WrongTypeOfInput as e:
+            print(e)
+        else:
+            self.execute(choice)
 
     @staticmethod
     def show_error():
         return WrongChoiceInMenu
 
     def execute(self, choice: int):
-        self.options.get(choice, self.show_error())
+        self.options.get(choice, self.show_error)

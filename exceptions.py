@@ -11,3 +11,8 @@ class FileDoesExists(Exception):
 class WrongChoiceInMenu(Exception):
     def __str__(self):
         return "Please type correct number."
+
+
+class WrongTypeOfInput(Exception):
+    def __str__(self):
+        return "Wrong type of data. Please enter a number."
