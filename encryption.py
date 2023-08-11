@@ -52,20 +52,6 @@ def encrypting_rot47(message):
 
     return encrypted
 
-    # """Coś takiego znalazłem, ale nie działa chyba"""
-    #
-    # key = 47
-    # encrypted = []
-    #
-    # for idx in range(len(message)):
-    #     character_idx = ord(message[idx])
-    #     if 33 <= character_idx <= 126:
-    #         encrypted.append(chr(33 + ((character_idx + 14) % 94)))
-    #     else:
-    #         encrypted.append(message[idx])
-    #
-    # return " ".join(encrypted)
-
 
 def decrypting_rot13(message):
     key = 13
@@ -119,58 +105,33 @@ def decrypting_rot47(message):
     return decrypted
 
 
-tekst = "tylko male literki i tyle"
-szyfr1 = encrypting_rot13(tekst)
-szyfr2 = encrypting_rot47(tekst)
-print(szyfr1)
-print(szyfr2)
-po_hymnie1 = decrypting_rot13(szyfr1)
-po_hymnie2 = decrypting_rot13(szyfr2)
-print(po_hymnie1)
-print(po_hymnie2)
+# """Kod sprawdzający działanie szyfrowania"""
+# tekst = "I'm blue: Yo, listen up here's a story about a little guy."
+# That lives in a blue world"
+# szyfr1 = encrypting_rot13(tekst)
+# szyfr2 = encrypting_rot47(tekst)
+# print("rot13: " + szyfr1)
+# print("rot47: " + szyfr2)
+# po_hymnie1 = decrypting_rot13(szyfr1)
+# po_hymnie2 = decrypting_rot47(szyfr2)
+# print("rot13: " + po_hymnie1)
+# print("rot47: " + po_hymnie2)
 
 
-#
-# if Buffer.status == "encrypted":
-#     print("Encrypting...")
-#
-#     if Buffer.root_type == "rot13":
-#         encrypting_rot13(Buffer.text)
-#     else:
-#         encrypting_rot47(Buffer.text)
-#
-# else:
-#     print("Decrypting...")
-#
-#     if Buffer.root_type == "rot13":
-#         decrypting_rot13(Buffer.text)
-#     else:
-#         decrypting_rot47(Buffer.text)
+def coding(buffer):
 
+    if buffer.status == "encrypted":
+        print("Encrypting...")
 
-# """stara metoda na kodowanie rot27"""
-# def encrypting_rot47(message):
-#     key = 47
-#     encrypted = ""
-#
-#     for i in range(len(message)):
-#         if ord(message[i]) > 122 - key:
-#             encrypted += chr(ord(message[i]) + key - 26)
-#         else:
-#             encrypted += chr(ord(message[i]) + key)
-#
-#     return encrypted
+        if buffer.root_type == "rot13":
+            encrypting_rot13(buffer.text)
+        else:
+            encrypting_rot47(buffer.text)
 
+    else:
+        print("Decrypting...")
 
-# """stara metoda na odkodowanie rot47"""
-# def decrypting_rot47(message):
-#     key = 47
-#     decrypted = ""
-#
-#     for i in range(len(message)):
-#         if ord(message[i]) - key < 97:
-#             decrypted += chr(ord(message[i]) - key + 26)
-#         else:
-#             decrypted += chr(ord(message[i]) - key)
-#
-#     return decrypted
+        if buffer.root_type == "rot13":
+            decrypting_rot13(buffer.text)
+        else:
+            decrypting_rot47(buffer.text)
