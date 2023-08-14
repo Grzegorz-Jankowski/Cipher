@@ -1,7 +1,10 @@
 from menu import Menu
 
 
-my_menu = Menu()
+def main():
+    my_menu = Menu()
+    my_menu.run()
 
-while my_menu.working:
-    my_menu.show_menu()
+
+if __name__ == "__main__":
+    main()

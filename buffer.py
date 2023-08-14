@@ -1,20 +1,25 @@
 from dataclasses import dataclass
+from typing import List
+
+
+@dataclass
+class Text:
+    txt: str
+    root_type: str
+    status: str
 
 
 @dataclass
 class Buffer:
-    text: str = ""
-    root_type: str = ""
-    status: str = ""
+    memory = []
 
+    @staticmethod
+    def show_buffers() -> List:
+        return Buffer.memory
 
-class EncryptedBuffer(Buffer):
-    text: str = ""
-    root_type: str = ""
-    status: str = "encrypted"
+    def create_new(self, new_text: Text) -> None:
+        self.memory.append(new_text)
 
-
-class DecryptedBuffer(Buffer):
-    text: str = ""
-    root_type: str = ""
-    status: str = "decrypted"
+    def delete(self) -> None:
+        position = int(input("Which text should be deleted (please add number)? "))
+        self.memory.pop(position-1)

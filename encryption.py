@@ -1,12 +1,26 @@
 from buffer import Buffer
 
+# TODO abstract factory, factory_method
+
+
+class Coding:
+    def __init__(self):
+        pass
+
+
+class Encrypting(Coding):
+    pass
+
+
+class Decrypting(Coding):
+    pass
+
 
 def encrypting_rot13(message):
     key = 13
     encrypted = ""
 
     for character in message:
-
         if character.isupper():
             character_idx = ord(character) - ord("A")
             character_shifted = (character_idx + key) % 26 + ord("A")
@@ -32,7 +46,6 @@ def encrypting_rot47(message):
     encrypted = ""
 
     for character in message:
-
         if character.isupper():
             character_idx = ord(character) - ord("A")
             character_shifted = (character_idx + key) % 26 + ord("A")
@@ -58,7 +71,6 @@ def decrypting_rot13(message):
     decrypted = ""
 
     for character in message:
-
         if character.isupper():
             character_idx = ord(character) - ord("A")
             character_original_position = (character_idx - key) % 26 + ord("A")
@@ -84,7 +96,6 @@ def decrypting_rot47(message):
     decrypted = ""
 
     for character in message:
-
         if character.isupper():
             character_idx = ord(character) - ord("A")
             character_original_position = (character_idx - key) % 26 + ord("A")
@@ -105,9 +116,9 @@ def decrypting_rot47(message):
     return decrypted
 
 
+#
 # """Kod sprawdzający działanie szyfrowania"""
 # tekst = "I'm blue: Yo, listen up here's a story about a little guy."
-# That lives in a blue world"
 # szyfr1 = encrypting_rot13(tekst)
 # szyfr2 = encrypting_rot47(tekst)
 # print("rot13: " + szyfr1)
@@ -119,7 +130,6 @@ def decrypting_rot47(message):
 
 
 def coding(buffer):
-
     if buffer.status == "encrypted":
         print("Encrypting...")
 
