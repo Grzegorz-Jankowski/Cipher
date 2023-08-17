@@ -1,147 +1,137 @@
+from __future__ import annotations
 from buffer import Buffer
+
 
 # TODO abstract factory, factory_method
 
 
-class Coding:
+class ROT:
+
+    def coding(self, buffer):
+        if buffer.status == "encrypted":
+            print("Encrypting...")
+
+            if buffer.root_type == "rot13":
+                ROT13.encrypting(buffer.text)
+            else:
+                ROT47.encrypting(buffer.text)
+
+        else:
+            print("Decrypting...")
+
+            if buffer.root_type == "rot13":
+                ROT13.decrypting(buffer.text)
+            else:
+                ROT47.decrypting(buffer.text)
+
+    def encrypting(self, message):
+        raise NotImplementedError
+
+    def decrypting(self, message):
+        raise NotImplementedError
+
+
+class ROT13(ROT):
     def __init__(self):
-        pass
+        super().__init__(self, root_type="root13")
+
+    def encrypting(self, message):
+        key = 13
+        encrypted = ""
+
+        for character in message:
+            if character.isupper():
+                character_idx = ord(character) - ord("A")
+                character_shifted = (character_idx + key) % 26 + ord("A")
+                encrypted += chr(character_shifted)
+
+            elif character.islower():
+                character_idx = ord(character) - ord("a")
+                character_shifted = (character_idx + key) % 26 + ord("a")
+                encrypted += chr(character_shifted)
+
+            elif character.isdigit():
+                character_new = (int(character) + key) % 10
+                encrypted += str(character_new)
+
+            else:
+                encrypted += character
+
+        return encrypted
+
+    def decrypting(self, message):
+        key = 13
+        decrypted = ""
+
+        for character in message:
+            if character.isupper():
+                character_idx = ord(character) - ord("A")
+                character_original_position = (character_idx - key) % 26 + ord("A")
+                decrypted += chr(character_original_position)
+
+            elif character.islower():
+                character_idx = ord(character) - ord("a")
+                character_original_position = (character_idx - key) % 26 + ord("a")
+                decrypted += chr(character_original_position)
+
+            elif character.isdigit():
+                character_original_position = (int(character) - key) % 10
+                decrypted += str(character_original_position)
+
+            else:
+                decrypted += character
+
+        return decrypted
 
 
-class Encrypting(Coding):
-    pass
+class ROT47(ROT):
+    def __init__(self):
+        super().__init__(self, root_type="root47")
 
+    def encrypting(self, message):
+        key = 47
+        encrypted = ""
 
-class Decrypting(Coding):
-    pass
+        for character in message:
+            if character.isupper():
+                character_idx = ord(character) - ord("A")
+                character_shifted = (character_idx + key) % 26 + ord("A")
+                encrypted += chr(character_shifted)
 
+            elif character.islower():
+                character_idx = ord(character) - ord("a")
+                character_shifted = (character_idx + key) % 26 + ord("a")
+                encrypted += chr(character_shifted)
 
-def encrypting_rot13(message):
-    key = 13
-    encrypted = ""
+            elif character.isdigit():
+                character_new = (int(character) + key) % 10
+                encrypted += str(character_new)
 
-    for character in message:
-        if character.isupper():
-            character_idx = ord(character) - ord("A")
-            character_shifted = (character_idx + key) % 26 + ord("A")
-            encrypted += chr(character_shifted)
+            else:
+                encrypted += character
 
-        elif character.islower():
-            character_idx = ord(character) - ord("a")
-            character_shifted = (character_idx + key) % 26 + ord("a")
-            encrypted += chr(character_shifted)
+        return encrypted
 
-        elif character.isdigit():
-            character_new = (int(character) + key) % 10
-            encrypted += str(character_new)
+    def decrypting(self, message):
+        key = 47
+        decrypted = ""
 
-        else:
-            encrypted += character
+        for character in message:
+            if character.isupper():
+                character_idx = ord(character) - ord("A")
+                character_original_position = (character_idx - key) % 26 + ord("A")
+                decrypted += chr(character_original_position)
 
-    return encrypted
+            elif character.islower():
+                character_idx = ord(character) - ord("a")
+                character_original_position = (character_idx - key) % 26 + ord("a")
+                decrypted += chr(character_original_position)
 
+            elif character.isdigit():
+                character_original_position = (int(character) - key) % 10
+                decrypted += str(character_original_position)
 
-def encrypting_rot47(message):
-    key = 47
-    encrypted = ""
+            else:
+                decrypted += character
 
-    for character in message:
-        if character.isupper():
-            character_idx = ord(character) - ord("A")
-            character_shifted = (character_idx + key) % 26 + ord("A")
-            encrypted += chr(character_shifted)
-
-        elif character.islower():
-            character_idx = ord(character) - ord("a")
-            character_shifted = (character_idx + key) % 26 + ord("a")
-            encrypted += chr(character_shifted)
-
-        elif character.isdigit():
-            character_new = (int(character) + key) % 10
-            encrypted += str(character_new)
-
-        else:
-            encrypted += character
-
-    return encrypted
-
-
-def decrypting_rot13(message):
-    key = 13
-    decrypted = ""
-
-    for character in message:
-        if character.isupper():
-            character_idx = ord(character) - ord("A")
-            character_original_position = (character_idx - key) % 26 + ord("A")
-            decrypted += chr(character_original_position)
-
-        elif character.islower():
-            character_idx = ord(character) - ord("a")
-            character_original_position = (character_idx - key) % 26 + ord("a")
-            decrypted += chr(character_original_position)
-
-        elif character.isdigit():
-            character_original_position = (int(character) - key) % 10
-            decrypted += str(character_original_position)
-
-        else:
-            decrypted += character
-
-    return decrypted
-
-
-def decrypting_rot47(message):
-    key = 47
-    decrypted = ""
-
-    for character in message:
-        if character.isupper():
-            character_idx = ord(character) - ord("A")
-            character_original_position = (character_idx - key) % 26 + ord("A")
-            decrypted += chr(character_original_position)
-
-        elif character.islower():
-            character_idx = ord(character) - ord("a")
-            character_original_position = (character_idx - key) % 26 + ord("a")
-            decrypted += chr(character_original_position)
-
-        elif character.isdigit():
-            character_original_position = (int(character) - key) % 10
-            decrypted += str(character_original_position)
-
-        else:
-            decrypted += character
-
-    return decrypted
-
-
-#
-# """Kod sprawdzający działanie szyfrowania"""
-# tekst = "I'm blue: Yo, listen up here's a story about a little guy."
-# szyfr1 = encrypting_rot13(tekst)
-# szyfr2 = encrypting_rot47(tekst)
-# print("rot13: " + szyfr1)
-# print("rot47: " + szyfr2)
-# po_hymnie1 = decrypting_rot13(szyfr1)
-# po_hymnie2 = decrypting_rot47(szyfr2)
-# print("rot13: " + po_hymnie1)
-# print("rot47: " + po_hymnie2)
-
-
-def coding(buffer):
-    if buffer.status == "encrypted":
-        print("Encrypting...")
-
-        if buffer.root_type == "rot13":
-            encrypting_rot13(buffer.text)
-        else:
-            encrypting_rot47(buffer.text)
-
-    else:
-        print("Decrypting...")
-
-        if buffer.root_type == "rot13":
-            decrypting_rot13(buffer.text)
-        else:
-            decrypting_rot47(buffer.text)
+        return decrypted
