@@ -8,6 +8,7 @@ from buffer import Buffer
 class ROT:
 
     def coding(self, buffer):
+        """Checking which class (ROT13 or ROT47) and method (encode or decode) should be used."""
         if buffer.status == "encrypted":
             print("Encrypting...")
 

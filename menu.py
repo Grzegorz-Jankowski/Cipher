@@ -40,22 +40,3 @@ class Menu:
 
     def exit_menu(self):
         self.__working = False
-
-
-"""
-Jak ma wyglądać menu?
-1. Tworzenie tekstu, działanie na bufferze:
-    - nowy
-    - sprawdzenie co jest
-    - usuwanie
-2. Kodowanie
-    - zakodowanie tego co w bufferze (args: tekst, rot)
-    - odkodowanie tego co w bufferze (args: tekst, rot)
-3. FileHandler
-    - zapisanie
-    - usunięcie
-    - lista plików
-    - pobranie do buffera
-    
-9. Exit
-"""

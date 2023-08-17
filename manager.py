@@ -9,7 +9,7 @@ class Manager:
     def __init__(self):
         self.file_handler = FileHandler()
         self.buffer = Buffer()
-        self.encrypting = Encrypting()
+        self.encrypting = ROT.Coding()
 
     def add_new_to_buffer(self):
         return self.buffer.create_new()
@@ -19,6 +19,9 @@ class Manager:
 
     def delete_from_buffer_memory(self):
         return self.buffer.delete()
+
+    """Czy teraz rozbijać na zakodowanie i odkodowanie czy mogę mieć w encryption metodę coding, która sama sprawdza
+    co ma robić i wtedy w menu bez sensu samemu wybierać co ma robić?"""
 
     # def encode_rot13(self):
     #     return self.encrypting.encryption_rot13()
@@ -36,10 +39,14 @@ class Manager:
         return self.file_handler.show_files()
 
     def copy_file_to_buffer(self):
-        return self.file_handler.read()
+        file_name = input("Which file do you want to read? ")
+        return self.file_handler.read(file_name)
 
     def save_file(self):
-        return self.file_handler.save_file()
+        file_name = input("Which file do you want to save? ")
+        file_text = "no skąd to teraz pobrać?"
+        return self.file_handler.save_file(file_name, file_text)
 
     def delete_file(self):
-        return self.file_handler.delete_file()
+        file_name = input("Which file do you want to delete? ")
+        return self.file_handler.delete_file(file_name)
