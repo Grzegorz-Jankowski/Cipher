@@ -1,9 +1,7 @@
+from typing import Dict
 import json
 import os
 from buffer import Buffer
-
-"""Pliki nie mają nazw, nie wiem gdzie dodać? tzn mają nazwy, ale jak dodaję do buffera to je tracą. Buffer to lista
-czy lepiej słownik{name: txt}?"""
 
 
 class FileHandler:
@@ -17,22 +15,23 @@ class FileHandler:
             Buffer.memory.append(data)
 
     @staticmethod
-    def save_file(file_name, file_text):
-        """Saving buffer as file."""
+    def save_file(file_name, file_text: Dict):
+        """Saving buffer as a file."""
         print("Saving file...")
+
         with open(file_name) as json_file:
             json.dump(file_text, json_file)
         print(f"File {file_name} saved successfully .")
 
     @staticmethod
     def delete_file(file_name):
-        """deleting file."""
+        """Deleting file."""
         print("Deleting  file...")
         os.remove(file_name)
         print(f"File {file_name} deleted successfully .")
 
     @staticmethod
     def show_files():
-        """show list of files."""
-        folder = os.listdir("jsons")
+        """Show list of files."""
+        folder = os.listdir("../files")
         print(folder)

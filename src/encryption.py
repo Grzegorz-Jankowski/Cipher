@@ -1,40 +1,37 @@
 from __future__ import annotations
-from buffer import Buffer
-
+from abc import ABC, abstractmethod
 
 # TODO abstract factory, factory_method
+"""Logika metody pod osobną funkcją i potem tylko ją wywołać przy rot13 i 47"""
 
 
-class ROT:
+class ROT(ABC):
+    def __init__(self, rot_type):
+        self.rot_type = rot_type
 
-    def coding(self, buffer):
-        """Checking which class (ROT13 or ROT47) and method (encode or decode) should be used."""
-        if buffer.status == "encrypted":
-            print("Encrypting...")
+    @staticmethod
+    def get_rot(rot_type: str) -> ROT13 | ROT47:
+        if rot_type == 'rot13':
+            return ROT13()
+        elif rot_type == 'rot47':
+            return ROT47()
 
-            if buffer.root_type == "rot13":
-                ROT13.encrypting(buffer.text)
-            else:
-                ROT47.encrypting(buffer.text)
-
-        else:
-            print("Decrypting...")
-
-            if buffer.root_type == "rot13":
-                ROT13.decrypting(buffer.text)
-            else:
-                ROT47.decrypting(buffer.text)
-
+    @abstractmethod
     def encrypting(self, message):
         raise NotImplementedError
 
+    @abstractmethod
     def decrypting(self, message):
         raise NotImplementedError
 
 
 class ROT13(ROT):
     def __init__(self):
-        super().__init__(self, root_type="root13")
+        super().__init__(rot_type='rot13')
+
+    def code_13(self):
+        """Jak to zmienić, chodzi tylko o znaki +/-"""
+        pass
 
     def encrypting(self, message):
         key = 13
@@ -87,7 +84,11 @@ class ROT13(ROT):
 
 class ROT47(ROT):
     def __init__(self):
-        super().__init__(self, root_type="root47")
+        super().__init__(rot_type="rot47")
+
+    def code_47(self):
+        """Jak to zmienić, chodzi tylko o znaki +/-"""
+        pass
 
     def encrypting(self, message):
         key = 47
