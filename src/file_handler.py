@@ -9,7 +9,7 @@ class FileHandler:
     @staticmethod
     def read(file_name):
         """loading file as buffer and printing."""
-        with open(file_name) as json_file:
+        with open(f"src\\file\\{file_name}") as json_file:
             data = json.load(json_file)
             print(data)
             Buffer.memory.append(data)
@@ -19,7 +19,7 @@ class FileHandler:
         """Saving buffer as a file."""
         print("Saving file...")
 
-        with open(file_name) as json_file:
+        with open(f"src\\file\\{file_name}") as json_file:
             json.dump(file_text, json_file)
         print(f"File {file_name} saved successfully .")
 
@@ -33,5 +33,8 @@ class FileHandler:
     @staticmethod
     def show_files():
         """Show list of files."""
-        folder = os.listdir("../files")
-        print(folder)
+        folder = os.listdir("files")
+        if folder:
+            print(folder)
+        else:
+            print("No files.")
