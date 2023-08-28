@@ -11,7 +11,7 @@ class Executor:
         self.file_handler = FileHandler()
 
     def show_buffer_memory(self):
-        return self.buffer.get_buffers()
+        self.buffer.show_buffer()
 
     def encode(self):
         user_choice = input("Encode using rot13 or rot47: ")
@@ -70,8 +70,8 @@ class Manager:
             self.execute()
 
     def execute(self):
-        choice = int(input(""))
+        choice = int(input())
         if choice not in self.options.keys():
             print("Invalid number")
         else:
-            self.options.get(choice)
+            self.options.get(choice)()

@@ -1,13 +1,11 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
 
-# TODO abstract factory, factory_method
-"""Logika metody pod osobną funkcją i potem tylko ją wywołać przy rot13 i 47"""
-
 
 class ROT(ABC):
-    def __init__(self, rot_type):
+    def __init__(self, rot_type: str, key) -> None:
         self.rot_type = rot_type
+        self.key = None
 
     @staticmethod
     def get_rot(rot_type: str) -> ROT13 | ROT47:
@@ -16,40 +14,45 @@ class ROT(ABC):
         elif rot_type == 'rot47':
             return ROT47()
 
+    # def transform(self):
+    #     return self.key
+
     @abstractmethod
-    def encrypting(self, message):
+    def encrypting(self, message: str):
         raise NotImplementedError
 
     @abstractmethod
-    def decrypting(self, message):
+    def decrypting(self, message: str):
         raise NotImplementedError
 
 
 class ROT13(ROT):
     def __init__(self):
-        super().__init__(rot_type='rot13')
+        super().__init__(rot_type='rot13', key=13)
 
     def code_13(self):
         """Jak to zmienić, chodzi tylko o znaki +/-"""
         pass
 
     def encrypting(self, message):
+        # return self.transform(message, 1)
         key = 13
         encrypted = ""
+        operation = 1
 
         for character in message:
             if character.isupper():
                 character_idx = ord(character) - ord("A")
-                character_shifted = (character_idx + key) % 26 + ord("A")
+                character_shifted = (character_idx + (operation * key)) % 26 + ord("A") # character_idx + 13 26 = 39
                 encrypted += chr(character_shifted)
 
             elif character.islower():
                 character_idx = ord(character) - ord("a")
-                character_shifted = (character_idx + key) % 26 + ord("a")
+                character_shifted = (character_idx + (operation * key)) % 26 + ord("a")
                 encrypted += chr(character_shifted)
 
             elif character.isdigit():
-                character_new = (int(character) + key) % 10
+                character_new = (int(character) + (operation * key)) % 10
                 encrypted += str(character_new)
 
             else:
@@ -58,22 +61,24 @@ class ROT13(ROT):
         return encrypted
 
     def decrypting(self, message):
+        # return self.transform(message, -1)
         key = 13
         decrypted = ""
+        operation = -1
 
         for character in message:
             if character.isupper():
                 character_idx = ord(character) - ord("A")
-                character_original_position = (character_idx - key) % 26 + ord("A")
+                character_original_position = (character_idx + (operation * key)) % 26 + ord("A") # character_idx + -13 # 26 = 13
                 decrypted += chr(character_original_position)
 
             elif character.islower():
                 character_idx = ord(character) - ord("a")
-                character_original_position = (character_idx - key) % 26 + ord("a")
+                character_original_position = (character_idx + (operation * key)) % 26 + ord("a")
                 decrypted += chr(character_original_position)
 
             elif character.isdigit():
-                character_original_position = (int(character) - key) % 10
+                character_original_position = (int(character) + (operation * key)) % 10
                 decrypted += str(character_original_position)
 
             else:

@@ -5,35 +5,40 @@ from buffer import Buffer
 
 
 class FileHandler:
+    FILES_DIR = 'files'
+    DEFAULT_FILE_EXTENSIONS = '.json'
 
     @staticmethod
-    def read(file_name):
-        """loading file as buffer and printing."""
-        with open(f"src\\file\\{file_name}") as json_file:
+    def get_full_file_path(file_name: str) -> str:
+        return fr"{FileHandler.FILES_DIR}\{file_name}{FileHandler.DEFAULT_FILE_EXTENSIONS}"
+
+    @staticmethod
+    def read(file_name: str) -> None:
+        path = FileHandler.get_full_file_path(file_name)
+        with open(path, 'r') as json_file:
             data = json.load(json_file)
             print(data)
             Buffer.memory.append(data)
 
     @staticmethod
-    def save_file(file_name, file_text: Dict):
-        """Saving buffer as a file."""
+    def save_file(file_name: str, file_text: Dict):
+        path = FileHandler.get_full_file_path(file_name)
         print("Saving file...")
 
-        with open(f"src\\file\\{file_name}") as json_file:
+        with open(path, 'w') as json_file:
             json.dump(file_text, json_file)
         print(f"File {file_name} saved successfully .")
 
     @staticmethod
     def delete_file(file_name):
-        """Deleting file."""
+        path = FileHandler.get_full_file_path(file_name)
         print("Deleting  file...")
-        os.remove(file_name)
+        os.remove(path)
         print(f"File {file_name} deleted successfully .")
 
     @staticmethod
     def show_files():
-        """Show list of files."""
-        folder = os.listdir("files")
+        folder = os.listdir(FileHandler.FILES_DIR)
         if folder:
             print(folder)
         else:
