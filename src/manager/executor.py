@@ -1,5 +1,6 @@
-from manager import Manager
-from buffer.buffer import Buffer, Text
+from .manager import Manager
+from buffer.buffer import Buffer
+from buffer.text import Text
 from encryption.encryption import ROT
 from fiile_handler.file_handler import FileHandler
 
