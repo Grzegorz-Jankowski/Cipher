@@ -5,7 +5,7 @@ from buffer import Buffer
 
 
 class FileHandler:
-    FILES_DIR = "files"
+    FILES_DIR = "../files"
     DEFAULT_FILE_EXTENSIONS = ".json"
 
     @staticmethod

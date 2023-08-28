@@ -1,7 +1,7 @@
 from __future__ import annotations
 from buffer import Buffer, Text
 from encryption import ROT
-from file_handler import FileHandler
+from fiile_handler.file_handler import FileHandler
 from menu import Menu
 
 

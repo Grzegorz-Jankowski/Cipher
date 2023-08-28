@@ -1,5 +1,5 @@
 from dataclasses import asdict
-from .text import Text
+from text import Text
 
 
 class Buffer:
