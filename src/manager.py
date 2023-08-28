@@ -60,7 +60,7 @@ class Manager:
             5: self.executor.read_and_copy_file_to_buffer,
             6: self.executor.save_file,
             7: self.executor.delete_file,
-            8: self.executor.exit_menu
+            8: self.executor.exit_menu,
         }
         self.__working = True
 

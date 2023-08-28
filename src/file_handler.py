@@ -5,17 +5,19 @@ from buffer import Buffer
 
 
 class FileHandler:
-    FILES_DIR = 'files'
-    DEFAULT_FILE_EXTENSIONS = '.json'
+    FILES_DIR = "files"
+    DEFAULT_FILE_EXTENSIONS = ".json"
 
     @staticmethod
     def get_full_file_path(file_name: str) -> str:
-        return fr"{FileHandler.FILES_DIR}\{file_name}{FileHandler.DEFAULT_FILE_EXTENSIONS}"
+        return (
+            rf"{FileHandler.FILES_DIR}\{file_name}{FileHandler.DEFAULT_FILE_EXTENSIONS}"
+        )
 
     @staticmethod
     def read(file_name: str) -> None:
         path = FileHandler.get_full_file_path(file_name)
-        with open(path, 'r') as json_file:
+        with open(path, "r") as json_file:
             data = json.load(json_file)
             print(data)
             Buffer.memory.append(data)
@@ -25,7 +27,7 @@ class FileHandler:
         path = FileHandler.get_full_file_path(file_name)
         print("Saving file...")
 
-        with open(path, 'w') as json_file:
+        with open(path, "w") as json_file:
             json.dump(file_text, json_file)
         print(f"File {file_name} saved successfully .")
 

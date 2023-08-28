@@ -9,13 +9,13 @@ class ROT(ABC):
 
     @staticmethod
     def get_rot(rot_type: str) -> ROT13 | ROT47:
-        if rot_type == 'rot13':
+        if rot_type == "rot13":
             return ROT13()
-        elif rot_type == 'rot47':
+        elif rot_type == "rot47":
             return ROT47()
 
-    # def transform(self):
-    #     return self.key
+    def transform(self):
+        return self.key
 
     @abstractmethod
     def encrypting(self, message: str):
@@ -28,11 +28,7 @@ class ROT(ABC):
 
 class ROT13(ROT):
     def __init__(self):
-        super().__init__(rot_type='rot13', key=13)
-
-    def code_13(self):
-        """Jak to zmienić, chodzi tylko o znaki +/-"""
-        pass
+        super().__init__(rot_type="rot13", key=13)
 
     def encrypting(self, message):
         # return self.transform(message, 1)
@@ -43,7 +39,9 @@ class ROT13(ROT):
         for character in message:
             if character.isupper():
                 character_idx = ord(character) - ord("A")
-                character_shifted = (character_idx + (operation * key)) % 26 + ord("A") # character_idx + 13 26 = 39
+                character_shifted = (character_idx + (operation * key)) % 26 + ord(
+                    "A"
+                )  # character_idx + 13 26 = 39
                 encrypted += chr(character_shifted)
 
             elif character.islower():
@@ -69,12 +67,18 @@ class ROT13(ROT):
         for character in message:
             if character.isupper():
                 character_idx = ord(character) - ord("A")
-                character_original_position = (character_idx + (operation * key)) % 26 + ord("A") # character_idx + -13 # 26 = 13
+                character_original_position = (
+                    character_idx + (operation * key)
+                ) % 26 + ord(
+                    "A"
+                )  # character_idx + -13 # 26 = 13
                 decrypted += chr(character_original_position)
 
             elif character.islower():
                 character_idx = ord(character) - ord("a")
-                character_original_position = (character_idx + (operation * key)) % 26 + ord("a")
+                character_original_position = (
+                    character_idx + (operation * key)
+                ) % 26 + ord("a")
                 decrypted += chr(character_original_position)
 
             elif character.isdigit():
