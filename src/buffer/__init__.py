@@ -1,2 +1,2 @@
-from buffer import *
-from text import *
+from .buffer import *
+from .text import *

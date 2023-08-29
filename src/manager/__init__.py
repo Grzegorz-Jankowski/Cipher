@@ -1,2 +1,1 @@
-from executor import *
-from manager import *
+from .manager import *
