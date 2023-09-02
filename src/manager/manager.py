@@ -3,6 +3,7 @@ from buffer.text import Text
 from encryption.encryption import ROT
 from fiile_handler.file_handler import FileHandler
 from menu.menu import Menu
+from typing import List
 
 
 class Executor:
@@ -13,21 +14,21 @@ class Executor:
     def show_buffer_memory(self):
         self.buffer.show_buffer()
 
-    def encode(self):
+    def encode(self) -> None:
         user_choice = input("Encode using rot13 or rot47: ")
         rot = ROT.get_rot(user_choice)
         text_to_encode = input("Add your text: ")
         encrypted_text = rot.encrypting(text_to_encode)
         self.buffer.memory.append(Text(encrypted_text, rot.rot_type, "encrypted"))
 
-    def decode(self):
+    def decode(self) -> None:
         user_choice = input("Decode using rot13 or rot47? ")
         rot = ROT.get_rot(user_choice)
         text_to_decode = input("Add your text: ")
         decrypted_text = rot.decrypting(text_to_decode)
         self.buffer.memory.append(Text(decrypted_text, rot.rot_type, "decrypted"))
 
-    def show_files_list(self):
+    def show_files_list(self) -> List:
         return self.file_handler.show_files()
 
     def read_and_copy_file_to_buffer(self):
@@ -44,7 +45,7 @@ class Executor:
         return self.file_handler.delete_file(file_name)
 
     @staticmethod
-    def exit_menu():
+    def exit_menu() -> None:
         Manager.__working = False
 
 
@@ -64,7 +65,7 @@ class Manager:
         }
         self.__working = True
 
-    def run(self):
+    def run(self) -> None:
         while self.__working:
             self.menu.show_menu()
             self.execute()

@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 
 class ROT(ABC):
-    def __init__(self, rot_type: str, key) -> None:
+    def __init__(self, rot_type: str, key: int | None) -> None:
         self.rot_type = rot_type
         self.key = None
 
@@ -14,7 +14,7 @@ class ROT(ABC):
         elif rot_type == "rot47":
             return ROT47()
 
-    def transform(self, message, operation):
+    def transform(self, message: str, operation: int) -> str:
         key = self.key
         encrypted = ""
 
@@ -51,10 +51,10 @@ class ROT13(ROT):
     def __init__(self):
         super().__init__(rot_type="rot13", key=13)
 
-    def encrypting(self, message):
+    def encrypting(self, message: str) -> str:
         return self.transform(message, 1)
 
-    def decrypting(self, message):
+    def decrypting(self, message: str) -> str:
         return self.transform(message, -1)
 
 
@@ -62,8 +62,8 @@ class ROT47(ROT):
     def __init__(self):
         super().__init__(rot_type="rot47", key=47)
 
-    def encrypting(self, message):
+    def encrypting(self, message: str) -> str:
         return self.transform(message, 1)
 
-    def decrypting(self, message):
+    def decrypting(self, message: str) -> str:
         return self.transform(message, -1)

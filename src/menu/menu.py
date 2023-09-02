@@ -1,6 +1,6 @@
 class Menu:
     @staticmethod
-    def show_menu():
+    def show_menu() -> None:
         print(
             "Choose any option:\n1. Show buffer memory. \n2. Encode text. \n3. Decode text. \n"
             "4. Show a list of saved files. \n5. Read file and add to existing list of texts. \n"

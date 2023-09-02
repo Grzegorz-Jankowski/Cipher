@@ -5,8 +5,8 @@ from buffer.buffer import Buffer
 
 
 class FileHandler:
-    FILES_DIR = "../files"
-    DEFAULT_FILE_EXTENSIONS = ".json"
+    FILES_DIR: str = "../files"
+    DEFAULT_FILE_EXTENSIONS: str = ".json"
 
     @staticmethod
     def get_full_file_path(file_name: str) -> str:
@@ -23,7 +23,7 @@ class FileHandler:
             Buffer.memory.append(data)
 
     @staticmethod
-    def save_file(file_name: str, file_text: Dict):
+    def save_file(file_name: str, file_text: Dict) -> None:
         path = FileHandler.get_full_file_path(file_name)
         print("Saving file...")
 
@@ -32,7 +32,7 @@ class FileHandler:
         print(f"File {file_name} saved successfully .")
 
     @staticmethod
-    def delete_file(file_name):
+    def delete_file(file_name: str) -> None:
         path = FileHandler.get_full_file_path(file_name)
         print("Deleting  file...")
         os.remove(path)

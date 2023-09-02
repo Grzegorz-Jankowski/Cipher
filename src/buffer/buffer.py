@@ -1,13 +1,14 @@
 from dataclasses import asdict
 from .text import Text
+from typing import List
 
 
 class Buffer:
-    memory = []
+    memory: List = []
 
-    def show_buffer(self):
+    def show_buffer(self) -> str:
         for idx, item in enumerate(self.memory, start=1):
-            print(f"{idx}. {item}")
+            return f"{idx}. {item}"
 
     def add(self, new_text: Text) -> None:
         self.memory.append(new_text)
