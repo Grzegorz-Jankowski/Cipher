@@ -5,7 +5,7 @@ from buffer.buffer import Buffer
 
 
 class FileHandler:
-    FILES_DIR: str = "../files"
+    FILES_DIR: str = ".\\files"
     DEFAULT_FILE_EXTENSIONS: str = ".json"
 
     @staticmethod
@@ -27,7 +27,7 @@ class FileHandler:
         path = FileHandler.get_full_file_path(file_name)
         print("Saving file...")
 
-        with open(path, "w") as json_file:
+        with open(path, "w+") as json_file:
             json.dump(file_text, json_file)
         print(f"File {file_name} saved successfully .")
 

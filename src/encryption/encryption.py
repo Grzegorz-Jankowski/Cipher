@@ -3,9 +3,12 @@ from abc import ABC, abstractmethod
 
 
 class ROT(ABC):
+    FORWARD = 1
+    BACKWARD = -1
+
     def __init__(self, rot_type: str, key: int | None) -> None:
         self.rot_type = rot_type
-        self.key = None
+        self.key = key
 
     @staticmethod
     def get_rot(rot_type: str) -> ROT13 | ROT47:
@@ -52,10 +55,10 @@ class ROT13(ROT):
         super().__init__(rot_type="rot13", key=13)
 
     def encrypting(self, message: str) -> str:
-        return self.transform(message, 1)
+        return self.transform(message, operation=self.FORWARD)
 
     def decrypting(self, message: str) -> str:
-        return self.transform(message, -1)
+        return self.transform(message, operation=self.BACKWARD)
 
 
 class ROT47(ROT):
@@ -63,7 +66,7 @@ class ROT47(ROT):
         super().__init__(rot_type="rot47", key=47)
 
     def encrypting(self, message: str) -> str:
-        return self.transform(message, 1)
+        return self.transform(message, operation=self.FORWARD)
 
     def decrypting(self, message: str) -> str:
-        return self.transform(message, -1)
+        return self.transform(message, operation=self.BACKWARD)

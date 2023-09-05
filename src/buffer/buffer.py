@@ -6,9 +6,10 @@ from typing import List
 class Buffer:
     memory: List = []
 
-    def show_buffer(self) -> str:
-        for idx, item in enumerate(self.memory, start=1):
-            return f"{idx}. {item}"
+    @staticmethod
+    def show_buffer() -> None:
+        for idx, item in enumerate(Buffer.memory, start=1):
+            print(f"{idx}. {item}")
 
     def add(self, new_text: Text) -> None:
         self.memory.append(new_text)
