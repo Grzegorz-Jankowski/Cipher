@@ -6,6 +6,9 @@ from typing import List
 class Buffer:
     memory: List = []
 
+    def add(x):
+        print(x)
+
     @staticmethod
     def show_buffer() -> None:
         for idx, item in enumerate(Buffer.memory, start=1):

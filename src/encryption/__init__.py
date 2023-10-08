@@ -1,1 +1,1 @@
-from .encryption import *
+from encryption import *
