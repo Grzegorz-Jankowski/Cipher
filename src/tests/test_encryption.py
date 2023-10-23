@@ -15,15 +15,26 @@ class TestRot:
         result = ROT.get_rot("asd")
         assert not result
 
-    # pytest.parametirze 2/3 przypadki
-    def test_ROT13_encrypting(self):
+    @pytest.mark.parametrize("message, result", [("abcd", "nopq"), ("1234", "4567"), ("uhbx", "huok")])
+    def test_rot13_encrypting(self, message, result):
         rot13 = ROT13()
-        result = rot13.encrypting("abcd")
-        assert result == "nopq"
+        my_function = rot13.encrypting
+        assert my_function(message) == result
 
-    def test_encrypting(self):
-        pass
+    @pytest.mark.parametrize("message, result", [("abcd", "vwxy"), ("1234", "8901"), ("uhbx", "pcws")])
+    def test_rot47_encrypting(self, message, result):
+        rot47 = ROT47()
+        my_function = rot47.encrypting
+        assert my_function(message) == result
 
+    @pytest.mark.parametrize("message, result", [("abcd", "nopq"), ("1234", "8901"), ("uhbx", "huok")])
+    def test_rot13_decrypting(self, message, result):
+        rot13 = ROT13()
+        my_function = rot13.decrypting
+        assert my_function(message) == result
 
-    def test_decrypting(self):
-        pass
+    @pytest.mark.parametrize("message, result", [("abcd", "fghi"), ("1234", "4567"), ("uhbx", "zmgc")])
+    def test_rot47_decrypting(self, message, result):
+        rot47 = ROT47()
+        my_function = rot47.decrypting
+        assert my_function(message) == result

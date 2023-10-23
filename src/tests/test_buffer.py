@@ -4,7 +4,8 @@ from unittest.mock import patch, call
 
 class TestBuffer:
 
-    def teardown_method(self):
+    @staticmethod
+    def teardown_method():
         Buffer.memory = []
 
     @patch('builtins.print')
