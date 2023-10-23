@@ -12,4 +12,3 @@ class TestMenu:
                  "4. Show a list of saved files. \n5. Read file and add to existing list of texts. \n"
                  "6. Save file. \n7. Delete file. \n8. Exit \n")
             ])
-            
