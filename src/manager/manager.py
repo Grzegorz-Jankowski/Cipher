@@ -1,9 +1,8 @@
 from typing import List
-from .buffer import Buffer
-from .buffer.text import Text
-from .encryption.encryption import ROT
-from .fiile_handler.file_handler import FileHandler
-from .menu.menu import Menu
+from buffer import Buffer, Text
+from encryption import ROT
+from file_handler import FileHandler
+from menu import Menu
 
 
 class Executor:

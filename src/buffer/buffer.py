@@ -6,16 +6,14 @@ from typing import List
 class Buffer:
     memory: List = []
 
-    def add(x):
-        print(x)
-
     @staticmethod
     def show_buffer() -> None:
         for idx, item in enumerate(Buffer.memory, start=1):
             print(f"{idx}. {item}")
 
-    def add(self, new_text: Text) -> None:
-        self.memory.append(new_text)
+    @staticmethod
+    def add(new_text: Text) -> None:
+        Buffer.memory.append(new_text)
 
     @staticmethod
     def convert_memory_to_list_of_dicts():
