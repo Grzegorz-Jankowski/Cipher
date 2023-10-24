@@ -1,7 +1,7 @@
+from buffer import Buffer
 from typing import Dict
 import json
 import os
-from buffer import Buffer
 
 
 class FileHandler:

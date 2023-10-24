@@ -11,7 +11,7 @@ class TestFileHandler:
 
     @pytest.mark.parametrize("file_name, full_path", [("first", ".\\files\\first.json"),
                                                       ("that_file", ".\\files\\that_file.json"),
-                                                      ("master11file", ".\\files\master11file.json")])
+                                                      ("master11file", ".\\files\\master11file.json")])
     def test_get_full_filename_path_should_show_folder_with_file_name(self, file_name, full_path):
         assert FileHandler.get_full_file_path(file_name) == full_path
 
@@ -25,5 +25,10 @@ class TestFileHandler:
         pass
 
     def test_show_files(self):
-        pass
+        FileHandler.show_files.folder = ["one.json", "two.jason", "ball.json"]
+        result = FileHandler.show_files()
+        assert result == ["one.json", "two.jason", "ball.json"]
 
+    # def test_show_files_when_empty(self):
+    #     folder = []
+    #     assert FileHandler.show_files() == "No files."
