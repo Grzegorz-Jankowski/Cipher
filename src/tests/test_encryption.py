@@ -3,6 +3,7 @@ import pytest
 
 
 class TestRot:
+
     def test_get_rot_returns_correct_object_for_rot13_string(self):
         result = ROT.get_rot("rot13")
         assert isinstance(result, ROT13)
