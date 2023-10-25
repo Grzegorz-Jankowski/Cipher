@@ -23,8 +23,8 @@ class TestFileHandler:
         with open(temp_file, "w") as file:
             json.dump(file_content, file)
 
-        with patch("file_handler.FileHandler.get_full_file_path", return_value=str(temp_file)):
-            FileHandler.read("tempfile.json")
+            with patch("file_handler.FileHandler.get_full_file_path", return_value=str(temp_file)):
+                FileHandler.read("tempfile.json")
 
         assert file_content in Buffer.memory
 
