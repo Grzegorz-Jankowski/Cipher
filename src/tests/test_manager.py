@@ -1,6 +1,9 @@
 from manager import Executor, Manager
+from buffer import Buffer
 import pytest
 from unittest.mock import patch, call
+
+"""Beznadzieja, nic nie rozumiem."""
 
 
 class TestExecutor:
