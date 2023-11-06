@@ -28,7 +28,7 @@ class Executor:
         self.buffer.add(Text(decrypted_text, rot.rot_type, "decrypted"))
 
     def show_files_list(self) -> List:
-        return self.file_handler.show_files()
+        return self.file_handler.show_files(FileHandler.FILES_DIR)
 
     def read_and_copy_file_to_buffer(self):
         file_name = input("Which file do you want to read? ")

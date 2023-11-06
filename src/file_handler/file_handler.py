@@ -39,9 +39,9 @@ class FileHandler:
         print(f"File {file_name} deleted successfully .")
 
     @staticmethod
-    def show_files():
-        folder = os.listdir(FileHandler.FILES_DIR)
-        if folder:
-            print(folder)
+    def show_files(folder):
+        list_of_files = os.listdir(folder)
+        if list_of_files:
+            print(list_of_files)
         else:
             print("No files.")
