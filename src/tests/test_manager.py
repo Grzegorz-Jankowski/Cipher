@@ -1,7 +1,10 @@
-from manager import Executor, Manager
+from manager import Executor, Manager, FileHandler
 from buffer import Buffer
 import pytest
 from unittest.mock import patch, call
+import io
+import tempfile
+import os
 
 
 class TestExecutor:
@@ -41,11 +44,29 @@ class TestExecutor:
             assert Buffer.memory[0].rot_type == rot
             assert Buffer.memory[0].status == "decrypted"
 
-    def test_show_files_list(self):
-        """To samo"""
-        pass
+    @patch('sys.stdout', new_callable=io.StringIO)
+    def test_show_files_list(self, mock_stdout):
+        with tempfile.TemporaryDirectory() as tmp_dir:
 
-    def test_ead_and_copy_file_to_buffer(self):
+            file1_path = os.path.join(tmp_dir, 'file1.txt')
+            file2_path = os.path.join(tmp_dir, 'file1.txt')
+            os.makedirs(tmp_dir, exist_ok=True)
+
+            with open(file1_path, 'w') as file1, open(file2_path, 'w') as file2:
+                file1.write('random_content1')
+                file2.write('random_content2')
+
+            self.executor.show_files_list()
+            assert len(mock_stdout.getvalue()) == 14
+
+    @patch('sys.stdout', new_callable=io.StringIO)
+    def test_show_files_list_when_no_files(self, mock_stdout):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            self.executor.show_files_list()
+            excepted_output = "No files.\n"
+            assert mock_stdout.getvalue() == excepted_output
+
+    def test_read_and_copy_file_to_buffer(self):
         """To samo"""
         pass
 
