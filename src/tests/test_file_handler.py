@@ -24,8 +24,8 @@ class TestFileHandler:
         with tempfile.TemporaryDirectory() as tmp_dir:
             file_handler = FileHandler()
 
-            file1_path = os.path.join(tmp_dir, 'file1.txt')
-            file2_path = os.path.join(tmp_dir, 'file1.txt')
+            file1_path = os.path.join(tmp_dir, 'file1.json')
+            file2_path = os.path.join(tmp_dir, 'file1.json')
             os.makedirs(tmp_dir, exist_ok=True)
 
             with open(file1_path, 'w') as file1, open(file2_path, 'w') as file2:
@@ -33,7 +33,7 @@ class TestFileHandler:
                 file2.write('random_content2')
 
             file_handler.show_files(tmp_dir)
-            assert len(mock_stdout.getvalue()) == 14
+            assert len(mock_stdout.getvalue()) == 15
 
     @patch('sys.stdout', new_callable=io.StringIO)
     def test_show_info_when_no_files_should_show_info(self, mock_stdout):
@@ -48,27 +48,35 @@ class TestFileHandler:
         with tempfile.TemporaryDirectory() as tmp_dir:
             file_handler = FileHandler()
 
-            file1_path = os.path.join(tmp_dir, 'file1.txt')
+            file1_path = os.path.join(tmp_dir, 'file1.json')
             os.makedirs(tmp_dir, exist_ok=True)
 
             with open(file1_path, 'w') as file1:
                 file1.write('random_content1')
 
-            print(Buffer.memory)
+            # """ W tym momencie powinienem odczytać mój plik, a jego treść dodać do Buffera."""
 
-            # """ W tym momencie powineiem odczytać mój plik, a jego treść dodać do Buffera."""
-            #
+        print(str(tmp_dir))
+
             # file_handler.read(tmp_dir + "file1")
             # Buffer.memory.append(file1)
-            #
-            # """ Tutaj printuję wyniki, zeby zobaczyć co mi wyszło z testu, potem zrobię porównanie poprzez assert, żeby
-            # test coś sprawdzał"""
+
+            # """ Tutaj printuję wyniki, zeby zobaczyć co mi wyszło z testu, potem zrobię porównanie poprzez assert,
+            # żeby test coś sprawdzał"""
 
             # print(Buffer.memory)
             # print(mock_stdout)
+    #
+    # @patch('sys.stdout', new_callable=io.StringIO)
+    # def test_save_file_should_save_file_text_using_file_name(self, mock_stdout):
+    #     with tempfile.TemporaryDirectory() as tmp_dir:
+    #         file_handler = FileHandler()
+    #
+    #         file1_path = os.path.join(tmp_dir, 'file1.txt')
+    #         os.makedirs(tmp_dir, exist_ok=True)
 
     # @patch('sys.stdout', new_callable=io.StringIO)
-    # def test_save_file_should_save_file_text_using_sile_name(self, mock_stdout):
+    # def test_delete_file_should_delete_file_using_file_name(self, mock_stdout):
     #     with tempfile.TemporaryDirectory() as tmp_dir:
     #         file_handler = FileHandler()
     #
