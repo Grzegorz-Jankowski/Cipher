@@ -5,6 +5,7 @@ from buffer import Buffer
 import pytest
 import os
 from unittest.mock import patch
+import json
 
 
 class TestFileHandler:
@@ -43,42 +44,45 @@ class TestFileHandler:
             excepted_output = "No files.\n"
             assert mock_stdout.getvalue() == excepted_output
 
-    @patch('sys.stdout', new_callable=io.StringIO)
-    def test_read_should_show_text_and_save_in_buffer_memory(self, mock_stdout):
+    def test_read_should_show_text_and_save_in_buffer_memory(self):
         with tempfile.TemporaryDirectory() as tmp_dir:
-            file_handler = FileHandler()
 
             file1_path = os.path.join(tmp_dir, 'file1.json')
             os.makedirs(tmp_dir, exist_ok=True)
 
             with open(file1_path, 'w') as file1:
-                file1.write('random_content1')
+                json.dump({'txt': "asd", 'rot_type': "rot13", 'status': "encrypted"}, file1)
 
-            # """ W tym momencie powinienem odczytać mój plik, a jego treść dodać do Buffera."""
+            with patch.object(FileHandler, "get_full_file_path", return_value=file1_path):
+                FileHandler.read(file1_path)
 
-        print(str(tmp_dir))
+            assert Buffer.memory == [{'rot_type': 'rot13', 'status': 'encrypted', 'txt': 'asd'}]
 
-            # file_handler.read(tmp_dir + "file1")
-            # Buffer.memory.append(file1)
+    def test_save_file_should_save_file_text_using_file_name(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
 
-            # """ Tutaj printuję wyniki, zeby zobaczyć co mi wyszło z testu, potem zrobię porównanie poprzez assert,
-            # żeby test coś sprawdzał"""
+            file1_path = os.path.join(tmp_dir, 'file1.json')
+            os.makedirs(tmp_dir, exist_ok=True)
 
-            # print(Buffer.memory)
-            # print(mock_stdout)
-    #
-    # @patch('sys.stdout', new_callable=io.StringIO)
-    # def test_save_file_should_save_file_text_using_file_name(self, mock_stdout):
-    #     with tempfile.TemporaryDirectory() as tmp_dir:
-    #         file_handler = FileHandler()
-    #
-    #         file1_path = os.path.join(tmp_dir, 'file1.txt')
-    #         os.makedirs(tmp_dir, exist_ok=True)
+            with patch.object(FileHandler, "get_full_file_path", return_value=file1_path):
+                FileHandler.save_file(file1_path, {'rot_type': 'rot13', 'status': 'encrypted', 'txt': 'asd'})
 
-    # @patch('sys.stdout', new_callable=io.StringIO)
-    # def test_delete_file_should_delete_file_using_file_name(self, mock_stdout):
-    #     with tempfile.TemporaryDirectory() as tmp_dir:
-    #         file_handler = FileHandler()
-    #
-    #         file1_path = os.path.join(tmp_dir, 'file1.txt')
-    #         os.makedirs(tmp_dir, exist_ok=True)
+            with open(file1_path, 'r') as file1:
+                file_what = json.load(file1)
+
+            assert file_what == {'rot_type': 'rot13', 'status': 'encrypted', 'txt': 'asd'}
+
+    def test_delete_file_should_delete_file_using_file_name(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+
+            file1_path = os.path.join(tmp_dir, 'file1.json')
+            os.makedirs(tmp_dir, exist_ok=True)
+
+            with open(file1_path, 'w') as file1:
+                json.dump({'txt': "asd", 'rot_type': "rot13", 'status': "encrypted"}, file1)
+
+            with patch.object(FileHandler, "get_full_file_path", return_value=file1_path):
+                FileHandler.delete_file(file1_path)
+
+            is_file = os.path.isfile(tmp_dir)
+            assert not is_file
