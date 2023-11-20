@@ -64,6 +64,7 @@ class Manager:
             self.menu.show_menu()
             self.execute()
 
+
     def execute(self):
         choice = int(input())
         if choice not in self.options.keys():
